@@ -52,30 +52,53 @@ class ApplicationOptionsExample extends Component {
     imageBackgroundColorChange = (color) => {
         this.setState({imageBackgroundColor: color.hex.substr(1)});
         setTimeout(() => this.forceUpdate(), 0);
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Color', 'choose', color.hex);
+        }
     };
     highlightBarsColorChange = (color) => {
         this.setState({highlightBarsColor: color.hex.substr(1)});
         setTimeout(() => this.forceUpdate(), 0);
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Color', 'choose', color.hex);
+        }
     };
     backgroundColorChange = (color) => {
         this.setState({backgroundColor: color.hex.substr(1)});
         setTimeout(() => this.forceUpdate(), 0);
         let stage = this.stage;
-        console.log(stage)
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Color', 'choose', color.hex);
+        }
     };
     collectionFontColorChange = (color) => {
         this.setState({collectionFontColor: color.hex.substr(1)});
         setTimeout(() => this.forceUpdate(), 0);
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Color', 'choose', color.hex);
+        }
     };
     secondaryFontColorChange = (color) => {
         this.setState({secondaryFontColor: color.hex.substr(1)});
         setTimeout(() => this.forceUpdate(), 0);
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Color', 'choose', color.hex);
+        }
     };
 
 
     coverChange(event) {
         this.setState({cover: event.target.value});
         setTimeout(() => this.forceUpdate(), 0);
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Cover', 'select', event.target.value);
+        }
     }
 
     componentDidUpdate() {
@@ -108,6 +131,11 @@ class ApplicationOptionsExample extends Component {
             dropzoneActive: false
         });
 
+        if(window.ga)
+        {
+            window.ga('send', 'event', 'Cover', 'Upload', null);
+        }
+
         setTimeout(() => this.forceUpdate(), 50);
         setTimeout(() => this.forceUpdate(), 500);
     }
@@ -118,19 +146,13 @@ class ApplicationOptionsExample extends Component {
 
         if(window.ga)
         {
-            window.ga('send', {
-                hitType: 'event',
-                eventCategory: 'Cover',
-                eventAction: 'Download',
-                eventLabel: this.state.collectionName
-            });
+            window.ga('send', 'event', 'Cover', 'Download', this.state.collectionName);
+            console.log('Download:', this.state.collectionName);
         }
 
     }
 
     render() {
-
-        console.log("rendering");
         const {accept, files, dropzoneActive, secondaryFontColor, collectionFontColor, backgroundColor, highlightBarsColor} = this.state;
         const overlayStyle = {
             background: 'rgba(0,0,0,0.8)',
