@@ -101,6 +101,17 @@ class ApplicationOptionsExample extends Component {
     download() {
         let image = this.stage._app.renderer.extract.base64(this.stage._app.stage);
         download(image, this.state.collectionName + '.png', 'image/png');
+
+        if(window.ga)
+        {
+            window.ga('send', {
+                hitType: 'event',
+                eventCategory: 'Cover',
+                eventAction: 'Download',
+                eventLabel: this.state.collectionName
+            });
+        }
+
     }
 
     render() {
