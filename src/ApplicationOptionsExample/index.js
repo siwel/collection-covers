@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone'
 import Background from "../Background";
 import {TwitterPicker} from "react-color";
 import download from "downloadjs";
-
+import Amplitude from "amplitude";
 
 const colors = [
     '#FF0000',
@@ -22,13 +22,12 @@ const colors = [
 ]
 
 
+
 class ApplicationOptionsExample extends Component {
 
 
     constructor() {
         super();
-
-
 
 
         this.state = {
@@ -44,9 +43,30 @@ class ApplicationOptionsExample extends Component {
             secondaryFontColor: 'ffffff',
         }
 
+        this.amp = new Amplitude('2433446a53914400e3ef2b05135ed543', { device_id: this.getID() });
+
+        this.amp.track({event_type: 'pageLoad', event_properties: {
+                pageName: "HOME"
+            } });
+
         this.handleChange = this.handleChange.bind(this);
         this.coverChange = this.coverChange.bind(this);
         this.download = this.download.bind(this);
+    }
+
+
+    getID()
+    {
+        var nav = window.navigator;
+        var screen = window.screen;
+        var guid = nav.mimeTypes.length;
+        guid += nav.userAgent.replace(/\D+/g, '');
+        guid += nav.plugins.length;
+        guid += screen.height || '';
+        guid += screen.width || '';
+        guid += screen.pixelDepth || '';
+
+        return guid;
     }
 
     imageBackgroundColorChange = (color) => {
@@ -150,6 +170,16 @@ class ApplicationOptionsExample extends Component {
             console.log('Download:', this.state.collectionName);
         }
 
+        this.amp.track({event_type: 'download', event_properties: {
+                    collectionName: this.state.collectionName.toUpperCase(),
+                    cover: this.state.cover.toUpperCase(),
+                    imageBackgroundColor: '#' + this.state.imageBackgroundColor.toUpperCase(),
+                    backgroundColor: '#' + this.state.backgroundColor.toUpperCase(),
+                    highlightBarsColor: '#' + this.state.highlightBarsColor.toUpperCase(),
+                    collectionFontColor: '#' + this.state.collectionFontColor.toUpperCase(),
+                    secondaryFontColor: '#' + this.state.secondaryFontColor.toUpperCase()
+            } })
+
     }
 
     render() {
@@ -181,7 +211,6 @@ class ApplicationOptionsExample extends Component {
         });
 
         const OPTIONS = {
-            backgroundColor: '0x'+backgroundColor,
             sharedtickerTicker: false,
             autoStart: false
         };

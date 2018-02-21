@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "dependencies": {
+    "amplitude": "^3.5.0",
     "downloadjs": "^1.4.7",
     "pixi.js": "^4.4.0",
     "react": "^16.2.0",
