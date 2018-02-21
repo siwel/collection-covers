@@ -8,7 +8,18 @@ import {TwitterPicker} from "react-color";
 import download from "downloadjs";
 
 
-
+const colors = [
+    '#FF0000',
+    '#FF6900',
+    '#FCB900',
+    '#00D084',
+    '#9900EF',
+    '#0693E3',
+    '#FFFFFF',
+    '#ACACAC',
+    '#242931',
+    '#000000'
+]
 
 
 class ApplicationOptionsExample extends Component {
@@ -16,6 +27,9 @@ class ApplicationOptionsExample extends Component {
 
     constructor() {
         super();
+
+
+
 
         this.state = {
             collectionName: 'collection name',
@@ -277,6 +291,7 @@ class ApplicationOptionsExample extends Component {
                                 <TwitterPicker triangle='hide'
                                                color={this.state.backgroundColor}
                                                onChangeComplete={this.backgroundColorChange}
+                                               colors={colors}
                                 />
                             </div>
 
@@ -286,6 +301,7 @@ class ApplicationOptionsExample extends Component {
                                 <TwitterPicker triangle='hide'
                                                color={this.state.imageBackgroundColor}
                                                onChangeComplete={this.imageBackgroundColorChange}
+                                               colors={colors}
                                 />
                             </div>}
 
@@ -294,6 +310,7 @@ class ApplicationOptionsExample extends Component {
                                 <TwitterPicker triangle='hide'
                                                color={this.state.highlightBarsColor}
                                                onChangeComplete={this.highlightBarsColorChange}
+                                               colors={colors}
                                 />
                             </div>
 
@@ -302,6 +319,7 @@ class ApplicationOptionsExample extends Component {
                                 <TwitterPicker triangle='hide'
                                                color={this.state.collectionFontColor}
                                                onChangeComplete={this.collectionFontColorChange}
+                                               colors={colors}
                                 />
                             </div>
                             <div className="uk-margin">
@@ -309,6 +327,7 @@ class ApplicationOptionsExample extends Component {
                                 <TwitterPicker triangle='hide'
                                                color={this.state.secondaryFontColor}
                                                onChangeComplete={this.secondaryFontColorChange}
+                                               colors={colors}
                                 />
                             </div>
 
