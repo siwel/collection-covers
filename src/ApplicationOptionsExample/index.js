@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Sprite, Stage, Text} from "react-pixi-fiber";
+import {Sprite, Stage, Text, Container} from "react-pixi-fiber";
 import Rectangle from "../Rectangle";
 import * as PIXI from "pixi.js"
 import Dropzone from 'react-dropzone'
@@ -41,6 +41,10 @@ class ApplicationOptionsExample extends Component {
             highlightBarsColor: 'acacac',
             collectionFontColor: 'ff0000',
             secondaryFontColor: 'ffffff',
+            theTextLocation: 268,
+            showTheText: true,
+            showCollectionText: true,
+            breakWords: true,
         }
 
         this.amp = new Amplitude('2433446a53914400e3ef2b05135ed543', { device_id: this.getID() });
@@ -52,6 +56,7 @@ class ApplicationOptionsExample extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.coverChange = this.coverChange.bind(this);
         this.download = this.download.bind(this);
+        this.checkboxUpdate = this.checkboxUpdate.bind(this);
     }
 
 
@@ -67,6 +72,16 @@ class ApplicationOptionsExample extends Component {
         guid += screen.pixelDepth || '';
 
         return guid;
+    }
+
+
+
+    checkboxUpdate(event){
+        const target = event.target;
+
+        this.setState({
+            [target.name]: target.checked
+        });
     }
 
     imageBackgroundColorChange = (color) => {
@@ -122,11 +137,16 @@ class ApplicationOptionsExample extends Component {
     }
 
     componentDidUpdate() {
-        this.stage._app.render();
+
+        if(this.collection && this.state.theTextLocation !== this.collection.height)
+        {
+            this.setState({theTextLocation: this.collection.height})
+        }
+        requestAnimationFrame(() => this.stage._app.render());
     }
 
     componentDidMount() {
-        this.stage._app.render();
+        requestAnimationFrame(() => this.stage._app.render());
     }
 
     handleChange(event) {
@@ -183,7 +203,8 @@ class ApplicationOptionsExample extends Component {
     }
 
     render() {
-        const {accept, files, dropzoneActive, secondaryFontColor, collectionFontColor, backgroundColor, highlightBarsColor} = this.state;
+
+        const {breakWords, theTextLocation, accept, files, dropzoneActive, secondaryFontColor, collectionFontColor, backgroundColor, highlightBarsColor} = this.state;
         const overlayStyle = {
             background: 'rgba(0,0,0,0.8)',
             textAlign: 'center',
@@ -204,10 +225,16 @@ class ApplicationOptionsExample extends Component {
             fontFamily: 'Bebas Neue'
         });
 
+
         const collectionFontStyle = new PIXI.TextStyle({
             fill: '0x'+collectionFontColor,
             fontSize: 280,
-            fontFamily: 'Bebas Neue'
+            fontFamily: 'Bebas Neue',
+            wordWrap: true,
+            wordWrapWidth: 2450,
+            miterLimit: 10,
+            align: 'right',
+            breakWords: breakWords,
         });
 
         const OPTIONS = {
@@ -289,11 +316,30 @@ class ApplicationOptionsExample extends Component {
                             />
 
 
-                            <Text text="THE" x={2490} y={3282} style={baseFontStyle} anchor={new PIXI.Point(1, 1)}/>
-                            <Text text={this.state.collectionName} x={2490} y={3556} style={collectionFontStyle}
-                                  anchor={new PIXI.Point(1, 1)}/>
-                            <Text text="COLLECTION" x={2490} y={3708} style={baseFontStyle}
-                                  anchor={new PIXI.Point(1, 1)}/>
+                            <Container x={2490} y={3708} anchor={new PIXI.Point(1, 1)}>
+
+                                <Text
+                                    y={-152}
+                                    text={this.state.collectionName}
+                                    style={collectionFontStyle}
+                                    anchor={new PIXI.Point(1, 1)}
+                                    ref={(collection) => { this.collection = collection; }}
+                                />
+
+                                <Text text="THE"
+                                      y={-theTextLocation - 158}
+                                      style={baseFontStyle}
+                                      anchor={new PIXI.Point(1, 1)}
+                                      alpha={this.state.showTheText ? 1 : 0}
+                                />
+
+                                <Text text="COLLECTION"
+                                      style={baseFontStyle}
+                                      anchor={new PIXI.Point(1, 1)}
+                                      alpha={this.state.showCollectionText ? 1 : 0}
+                                />
+                            </Container>
+
 
 
                         </Stage>
@@ -387,6 +433,55 @@ class ApplicationOptionsExample extends Component {
                     </div>
 
 
+                    <div className="uk-card uk-card-default ">
+                        <div className="uk-card-header">
+                            <div className="uk-grid-small uk-flex-middle">
+                                <div className="uk-width-expand">
+                                    <h3 className="uk-card-title uk-margin-remove-bottom">Advance</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="uk-card-body" style={{textAlign: 'left'}}>
+
+                            <div className="uk-margin">
+                                <label>
+                                    <input
+                                        className="uk-checkbox"
+                                        type="checkbox"
+                                        name='showTheText'
+                                        checked={this.state.showTheText}
+                                        onChange={this.checkboxUpdate}
+                                    /> 'THE' TEXT
+                                </label>
+                            </div>
+
+                            <div className="uk-margin">
+                                <label>
+                                    <input
+                                        className="uk-checkbox"
+                                        type="checkbox"
+                                        name='showCollectionText'
+                                        checked={this.state.showCollectionText}
+                                        onChange={this.checkboxUpdate}
+                                    /> 'COLLECTION' TEXT
+                                </label>
+                            </div>
+
+                            <div className="uk-margin">
+                                <label>
+                                    <input
+                                        className="uk-checkbox"
+                                        type="checkbox"
+                                        name='breakWords'
+                                        checked={this.state.breakWords}
+                                        onChange={this.checkboxUpdate}
+                                    /> WORD WRAP BREAK WORDS
+                                </label>
+                            </div>
+
+
+                        </div>
+                    </div>
 
                     <div className="uk-card uk-card-default ">
                         <div className="uk-card-header">
@@ -399,9 +494,10 @@ class ApplicationOptionsExample extends Component {
                         <div className="uk-card-body">
 
 
-                            <p>Made by <a href='https://github.com/siwel'>Lewis Qauife</a>.</p><p> Many thanks to <a href='https://www.reddit.com/r/PleX'>/r/plex</a>.</p><p> Plex collection <a href='https://support.plex.tv/articles/201273953-collections/'>support</a></p>
-
-
+                            <p> Made by <a href='https://github.com/siwel'>Lewis Qauife</a>.</p>
+                            <p> Many thanks to <a href='https://www.reddit.com/r/PleX'>/r/plex</a></p>
+                            <p> Layout by <a href='https://www.reddit.com/u/theoriginalsuperman'>theoriginalsuperman</a></p>
+                            <p> Plex collection <a href='https://support.plex.tv/articles/201273953-collections/'>support</a></p>
 
 
                         </div>
