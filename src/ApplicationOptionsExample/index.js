@@ -45,6 +45,7 @@ class ApplicationOptionsExample extends Component {
             showTheText: true,
             showCollectionText: true,
             breakWords: true,
+            fontSize: 280
         }
 
         this.amp = new Amplitude('2433446a53914400e3ef2b05135ed543', { device_id: this.getID() });
@@ -57,6 +58,7 @@ class ApplicationOptionsExample extends Component {
         this.coverChange = this.coverChange.bind(this);
         this.download = this.download.bind(this);
         this.checkboxUpdate = this.checkboxUpdate.bind(this);
+        this.fontSizeChange = this.fontSizeChange.bind(this);
     }
 
 
@@ -81,6 +83,12 @@ class ApplicationOptionsExample extends Component {
 
         this.setState({
             [target.name]: target.checked
+        });
+    }
+
+    fontSizeChange(event){
+        this.setState({
+            fontSize: event.target.valueAsNumber
         });
     }
 
@@ -228,7 +236,7 @@ class ApplicationOptionsExample extends Component {
 
         const collectionFontStyle = new PIXI.TextStyle({
             fill: '0x'+collectionFontColor,
-            fontSize: 280,
+            fontSize: this.state.fontSize,
             fontFamily: 'Bebas Neue',
             wordWrap: true,
             wordWrapWidth: 2450,
@@ -479,6 +487,18 @@ class ApplicationOptionsExample extends Component {
                                 </label>
                             </div>
 
+                            <div className="uk-margin">
+                                <span className="uk-text-background">Collection Font Size</span>
+                                <input
+                                    className="uk-range"
+                                    type="range"
+                                    value={this.state.fontSize}
+                                    min="200"
+                                    max="400"
+                                    step="25"
+                                    onChange={this.fontSizeChange}
+                                />
+                            </div>
 
                         </div>
                     </div>
