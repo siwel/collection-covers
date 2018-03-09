@@ -446,7 +446,7 @@ class ApplicationOptionsExample extends Component {
                             <h3 className="uk-card-title uk-margin-remove-bottom">Get Updates</h3>
                         </div>
 
-                        <form name="email" method="POST" netlify>
+                        <form name="email" method="POST" data-netlify="true">
 
                             <div className="uk-card-body">
 
