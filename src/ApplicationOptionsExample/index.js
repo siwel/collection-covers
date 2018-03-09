@@ -447,7 +447,7 @@ class ApplicationOptionsExample extends Component {
                         </div>
 
                         <form method="post">
-
+                            <input type="hidden" name="form-name" value="emailCapture" />
                             <div className="uk-card-body" >
 
                                 <div className="uk-margin">
