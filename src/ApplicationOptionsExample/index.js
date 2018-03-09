@@ -448,11 +448,13 @@ class ApplicationOptionsExample extends Component {
 
                         <form name="email" method="POST" data-netlify="true">
 
-                            <div className="uk-card-body">
+                            <div className="uk-card-body" >
 
                                 <div className="uk-margin">
                                     <input className="titleInput uk-input" type="text" name="name" placeholder='Name'/>
                                 </div>
+
+                                <div netlify-recaptcha></div>
 
                                 <div className="uk-margin">
                                     <input className="titleInput uk-input" type="email" name="email" placeholder='e-mail'/>
