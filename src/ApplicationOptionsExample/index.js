@@ -383,9 +383,7 @@ class ApplicationOptionsExample extends Component {
                     <div className="uk-card uk-card-default ">
                         <div className="uk-card-header">
                             <div className="uk-grid-small uk-flex-middle">
-                                <div className="uk-width-expand">
                                     <h3 className="uk-card-title uk-margin-remove-bottom">Colors</h3>
-                                </div>
                             </div>
                         </div>
                         <div className="uk-card-body">
@@ -442,11 +440,39 @@ class ApplicationOptionsExample extends Component {
 
 
                     <div className="uk-card uk-card-default ">
+
+                        <div className="uk-card-header">
+
+                            <h3 className="uk-card-title uk-margin-remove-bottom">Get Updates</h3>
+                        </div>
+
+                        <form name="email" method="POST" netlify>
+
+                            <div className="uk-card-body">
+
+                                <div className="uk-margin">
+                                    <input className="titleInput uk-input" type="text" name="name" placeholder='Name'/>
+                                </div>
+
+                                <div className="uk-margin">
+                                    <input className="titleInput uk-input" type="email" name="email" placeholder='e-mail'/>
+                                </div>
+
+                            </div>
+
+                            <div className="uk-card-footer">
+                                <button className="uk-button uk-button-primary" type="submit">Send</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+
+
+                    <div className="uk-card uk-card-default ">
                         <div className="uk-card-header">
                             <div className="uk-grid-small uk-flex-middle">
-                                <div className="uk-width-expand">
                                     <h3 className="uk-card-title uk-margin-remove-bottom">Advance</h3>
-                                </div>
                             </div>
                         </div>
                         <div className="uk-card-body" style={{textAlign: 'left'}}>
@@ -506,9 +532,7 @@ class ApplicationOptionsExample extends Component {
                     <div className="uk-card uk-card-default ">
                         <div className="uk-card-header">
                             <div className="uk-grid-small uk-flex-middle">
-                                <div className="uk-width-expand">
                                     <h3 className="uk-card-title uk-margin-remove-bottom">About</h3>
-                                </div>
                             </div>
                         </div>
                         <div className="uk-card-body">
