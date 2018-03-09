@@ -446,15 +446,13 @@ class ApplicationOptionsExample extends Component {
                             <h3 className="uk-card-title uk-margin-remove-bottom">Get Updates</h3>
                         </div>
 
-                        <form name="email" method="POST" data-netlify="true">
+                        <form name="email" method="post" data-netlify="true">
 
                             <div className="uk-card-body" >
 
                                 <div className="uk-margin">
                                     <input className="titleInput uk-input" type="text" name="name" placeholder='Name'/>
                                 </div>
-
-                                <div netlify-recaptcha></div>
 
                                 <div className="uk-margin">
                                     <input className="titleInput uk-input" type="email" name="email" placeholder='e-mail'/>
